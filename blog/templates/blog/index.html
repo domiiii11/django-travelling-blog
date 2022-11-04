@@ -1,0 +1,78 @@
+{% extends 'blog/base1.html' %}
+{% load thumbnail %}
+
+
+{% block head %}
+{{ block.super }}
+{% endblock head %}
+
+{% block header %}
+{{ block.super }}
+{% endblock header %}
+
+{% block main %}
+{{ redirect_to_login_immediately }}
+
+{%block title_bar%}
+
+<section id="aa" class="py-5 text-center container heading-style">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">My traveling blog page</h1>
+      <p class="lead text-muted">
+        Taste spoonful travelling adventures together with me.
+      </p>
+      <p>
+        {% url 'blog:create-post' as create_url %}
+        <a href="{{ create_url }}" class="btn btn-secondary my-2">Create a post</a>
+      </p>
+    </div>
+  </div>
+
+</section>
+
+{%endblock title_bar%}
+{% block card%}
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for key, value in posts_dictionary.items %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <img src="{% thumbnail value '1920' as im %}{{ im.url }}{% endthumbnail %}" srcset="
+              {% thumbnail value '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail value '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail value '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail value '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+              {% thumbnail value '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}" alt="..."
+            sizes="100vw" />
+
+          <div class="card-body">
+            <p class="card-text">{{key.post_title}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  {% url 'blog:post' key.id as post_url %}
+                  <a href="{{ post_url }}">View</a>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  {% url 'blog:edit' key.id as post_url %}
+                  <a href="{{ post_url }}">Edit</a>
+                </button>
+              </div>
+              <small class="text-muted">{{post.release_date}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock card%}
+
+{% endblock main %}
+{% block footer %}
+{{block.super}}
+
+{% endblock footer %}

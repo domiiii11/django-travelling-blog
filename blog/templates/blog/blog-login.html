@@ -1,0 +1,42 @@
+{% extends 'blog/login.html' %}
+{% block head %}
+{{ block.super }}
+{% endblock head %}
+{% block main %}
+<div class="container">
+<form class="form-signin needs-validation" action="" method="post" novalidate>
+  {% csrf_token %}
+  <img class="mb-4"
+    src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/000000/external-blog-digital-content-wanicon-lineal-color-wanicon.png"
+    alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+  <label for="username" class="sr-only">Username</label>
+  <input type="text" id="username" name="username" class="form-control{% if wrong_data %} {{'is-invalid'}}  {% endif %}"
+    placeholder="Username" aria-describedby="validationServerUsername" required autofocus>
+  <label for="password" class="sr-only">Password</label>
+  <input type="password" id="password" name="password"
+    class="form-control{% if wrong_data %} {{'is-invalid'}}  {% endif %}" placeholder="Password"
+    aria-describedby="validationServerUsername" required>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <div class="invalid-feedback mb-3">
+    Wrong username or password. Please try again.
+  </div>
+
+  {% for message in messages %}
+  <p id="log-out-message" class="message {{ message.tags }}">
+    {{ message }}
+  </p>
+  {% endfor %}
+</form>
+<div>
+{% endblock main %}
+{% block footer %}
+{{ block.super }}
+{% endblock footer %}

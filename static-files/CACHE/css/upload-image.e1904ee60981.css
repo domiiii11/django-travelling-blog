@@ -1,0 +1,6 @@
+/* line 1, blog/static/upload-image.scss */
+#post-image {
+  vertical-align: -moz-middle-with-baseline;
+  height: 100%;
+  width: 100%;
+  object-fit: contain; }

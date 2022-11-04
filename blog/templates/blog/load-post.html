@@ -1,0 +1,73 @@
+{% extends 'blog/base1.html' %}
+{% load thumbnail %}
+
+{% block head %}
+{{ block.super }}
+{% endblock head %}
+
+{% block main %}
+
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
+      {% load static %} {% get_static_prefix as STATIC_PREFIX %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+              {% for image in images %}
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter0}}"
+                {% if forloop.counter0 == 0 %} class="active" aria-current="true" {% endif %}
+                aria-label="Slide {{forloop.counter}}"></button>
+              {% endfor %}
+            </div>
+            <div class="carousel-inner">
+              {% for image in images %}
+              <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+                <img id="post-image" src="{% thumbnail image '1920' as im %}{{ im.url }}{% endthumbnail %}" srcset="
+                {% thumbnail image '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                {% thumbnail image '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                {% thumbnail image '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                {% thumbnail image '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                {% thumbnail image '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}" alt="..."
+              sizes="100vw" />
+              </div>
+              {% endfor %}
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{post.post_text}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">
+                    {% url 'blog:edit' post.id as post_url %}
+                    <a href="{{ post_url }}">Edit</a>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">
+                    {% url 'blog:main' as main_url %}
+                    <a href="{{ main_url }}">Go back</a>
+                  </button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock main %}
+  {% block footer %}
+  {{block.super}}
+
+  {% endblock footer %}

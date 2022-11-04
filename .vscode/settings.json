@@ -1,0 +1,32 @@
+{
+    "cSpell.words": [
+        "wtforms"
+    ],
+    "beautify.language": {
+        "js": {
+          "type": ["javascript", "json"],
+          "filename": [".jshintrc", ".jsbeautifyrc"]
+          // "ext": ["js", "json"]
+          // ^^ to set extensions to be beautified using the javascript beautifier
+        },
+        "css": ["css", "scss"],
+        "html": ["htm", "html"]
+        // ^^ providing just an array sets the VS Code file type
+      }
+,
+"files.associations": {
+  "**/*.html": "html",
+  "**/templates/**/*.html": "django-html",
+  "**/templates/**/*": "django-txt",
+  "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+},
+"emmet.includeLanguages": {
+  "django-html": "html"
+},
+"beautify.language": {
+  "html": [
+      "htm",
+      "html",
+      "django-html"
+  ]
+}

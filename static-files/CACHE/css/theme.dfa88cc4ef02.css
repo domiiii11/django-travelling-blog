@@ -1,0 +1,8 @@
+/* line 5, blog/static/theme.scss */
+p {
+  color: red; }
+
+/* line 9, blog/static/theme.scss */
+.py-5 {
+  padding-top: 12rem !important;
+  padding-bottom: 12rem !important; }

@@ -1,0 +1,85 @@
+{% extends 'blog/base1.html' %}
+
+{% block head %}
+{{ block.super }}
+{% endblock head %}
+
+{% block main %}
+
+<body class="bg-light">
+  <div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4"
+          src="https://img.icons8.com/external-filled-outline-lima-studio/64/000000/external-post-social-media-filled-outline-lima-studio-2.png"
+          alt="" width="72" height="57">
+        <h2>Edit post</h2>
+        <p class="lead">Below prefil all fealds and edit a post about your adventure.</p>
+      </div>
+      <form class="needs-validation" action="" method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="col-12 mb-3">
+              <label for="{{ post_form.author.id_for_label }}" class="form-label">Author</label>
+              <input type="text" class="form-control" name="author" maxlength="100" required
+                id="{{ post_form.author.id_for_label }}" placeholder="{{old_post_object.author}}">
+              <div class="invalid-feedback">
+                Author name is required.
+              </div>
+            </div>
+            <div class="col-12 mb-3">
+              <label for="{{ post_form.post_title.id_for_label}}" class="form-label">Post title</label>
+              <input type="text" class="form-control" name="post_title" maxlength="100" required
+                id="{{ post_form.post_title.id_for_label}}" placeholder="{{old_post_object.post_title}}">
+              <div class="invalid-feedback">
+                Please enter post title.
+              </div>
+            </div>
+
+            <div class="col-12 mb-3">
+              <label for="{{ post_form.post_text.id_for_label }}" class="form-label">Post text</label>
+              <input type="text" class="form-control" name="post_text" maxlength="3000" required
+                id="{{ post_form.post_text.id_for_label }}" placeholder="{{old_post_object.post_text}}">
+              <div class="invalid-feedback">
+                Please enter your post text.
+              </div>
+            </div>
+           
+            <div class="row g-3">
+              <div class="col-md-5 mb-3">
+                <label for="{{ post_form.place_to_visit.id_for_label }}" class="form-label">Place to visit</label>
+                <select class="form-select" name="place_to_visit" id="{{ post_form.place_to_visit.id_for_label }}"
+                  required>
+                  {% for number, place_to_visit in choices.items %}
+                  <option value="{{number}}">{{place_to_visit}}</option>
+                  {% endfor%}
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid place to visit.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 mb-3">
+              <p>
+                {% url 'blog:create-place-to-visit' as create_url %}
+                <a href="{{ create_url }}" class="btn btn-secondary my-2">Register new place to visit</a>
+              </p>
+              <p>
+                {% url 'blog:upload-image' as upload_url %}
+                <a href="{{ upload_url }}" class="btn btn-secondary my-2">Upload images</a>
+              </p>
+            </div>
+            <hr class="my-4">
+            <button class="w-100 btn btn-primary btn-lg" type="submit"> Save a post!</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+{% endblock main %}
+{% block footer %}
+{{block.super}}
+
+{% endblock footer %}
